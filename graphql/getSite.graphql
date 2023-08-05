@@ -1,0 +1,6 @@
+query getSites {
+  sites {
+    id
+    title
+  }
+}
