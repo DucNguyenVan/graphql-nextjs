@@ -28,6 +28,7 @@ export type Query = {
   __typename?: 'Query';
   sites: Array<Site>;
   test2: Scalars['String']['output'];
+  test3: Scalars['String']['output'];
   /** An example field added by the generator */
   testField: Scalars['String']['output'];
 };
@@ -46,6 +47,11 @@ export type GetSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: string, name?: string | null }> };
 
+export type GetTestQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTestQuery = { __typename?: 'Query', test3: string };
+
 
 export const GetSitesDocument = gql`
     query getSites {
@@ -53,6 +59,11 @@ export const GetSitesDocument = gql`
     id
     name
   }
+}
+    `;
+export const GetTestDocument = gql`
+    query getTest {
+  test3
 }
     `;
 
@@ -65,6 +76,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     getSites(variables?: GetSitesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSitesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSitesQuery>(GetSitesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSites', 'query');
+    },
+    getTest(variables?: GetTestQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTestQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTestQuery>(GetTestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTest', 'query');
     }
   };
 }
