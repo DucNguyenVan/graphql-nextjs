@@ -7,10 +7,10 @@ const sdk = getSdk(client);
 
 export default async function Home() {
   const response = await sdk.getSites();
-  const res2 = await sdk.getTest();
+  const res2 = await sdk.getSiteById({id: 1});
 
   // render data
   console.log(response)
-  console.log(res2)
+  console.log("res2", res2)
   return <div>hello !</div>
 }

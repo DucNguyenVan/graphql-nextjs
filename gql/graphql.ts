@@ -33,6 +33,11 @@ export type Query = {
   testField: Scalars['String']['output'];
 };
 
+
+export type QuerySitesArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type Site = {
   __typename?: 'Site';
   createdAt: Scalars['ISO8601DateTime']['output'];
@@ -47,6 +52,13 @@ export type GetSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: string, name?: string | null }> };
 
+export type GetSiteByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetSiteByIdQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: string, name?: string | null }> };
+
 export type GetTestQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -56,6 +68,14 @@ export type GetTestQuery = { __typename?: 'Query', test3: string };
 export const GetSitesDocument = gql`
     query getSites {
   sites {
+    id
+    name
+  }
+}
+    `;
+export const GetSiteByIdDocument = gql`
+    query getSiteById($id: ID!) {
+  sites(id: $id) {
     id
     name
   }
@@ -76,6 +96,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     getSites(variables?: GetSitesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSitesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSitesQuery>(GetSitesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSites', 'query');
+    },
+    getSiteById(variables: GetSiteByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSiteByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetSiteByIdQuery>(GetSiteByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSiteById', 'query');
     },
     getTest(variables?: GetTestQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTestQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTestQuery>(GetTestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTest', 'query');

@@ -1,0 +1,6 @@
+query getSiteById($id: ID!) {
+    sites(id: $id) {
+      id
+      name
+    }
+}
