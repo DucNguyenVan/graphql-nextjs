@@ -30,6 +30,7 @@ npm run dev
 3. Access http://localhost:3000/ and see console.log
 
 When update new schema at server side, client side need to sync the latest schema
+
 4. Run codegen command to update latest schema
 ```cmd
 npm run codegen --check
