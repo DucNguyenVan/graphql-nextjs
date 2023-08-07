@@ -44,13 +44,14 @@ export type Site = {
 export type GetSitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: string }> };
+export type GetSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: string, name?: string | null }> };
 
 
 export const GetSitesDocument = gql`
     query getSites {
   sites {
     id
+    name
   }
 }
     `;

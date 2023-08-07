@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts --watch"
   },
   "dependencies": {
     "@types/node": "20.4.7",
@@ -30,6 +30,7 @@
     "@graphql-codegen/client-preset": "4.1.0",
     "@graphql-codegen/introspection": "4.0.0",
     "@graphql-codegen/typescript-graphql-request": "^5.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "@parcel/watcher": "^2.1.0"
   }
 }
