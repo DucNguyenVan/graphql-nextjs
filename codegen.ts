@@ -10,9 +10,6 @@ const config: CodegenConfig = {
   generates: {
     "gql/graphql.ts": {
       plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
-    },
-    "./graphql.schema.json": {
-      plugins: ["introspection"]
     }
   }
 };
