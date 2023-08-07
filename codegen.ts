@@ -8,8 +8,7 @@ const config: CodegenConfig = {
   documents: "graphql/**/*.graphql",
   ignoreNoDocuments: true,
   generates: {
-    "gql/": {
-      preset: "client",
+    "gql/graphql.ts": {
       plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
     },
     "./graphql.schema.json": {
