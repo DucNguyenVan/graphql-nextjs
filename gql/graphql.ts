@@ -1,6 +1,8 @@
 import { GraphQLClient } from 'graphql-request';
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
+import { ClientError } from 'graphql-request/dist/types';
+import useSWR, { SWRConfiguration as SWRConfigInterface, Key as SWRKeyInterface } from 'swr';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -106,3 +108,19 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
+export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  const sdk = getSdk(client, withWrapper);
+  return {
+    ...sdk,
+    useGetSites(key: SWRKeyInterface, variables?: GetSitesQueryVariables, config?: SWRConfigInterface<GetSitesQuery, ClientError>) {
+      return useSWR<GetSitesQuery, ClientError>(key, () => sdk.getSites(variables), config);
+    },
+    useGetSiteById(key: SWRKeyInterface, variables: GetSiteByIdQueryVariables, config?: SWRConfigInterface<GetSiteByIdQuery, ClientError>) {
+      return useSWR<GetSiteByIdQuery, ClientError>(key, () => sdk.getSiteById(variables), config);
+    },
+    useGetTest(key: SWRKeyInterface, variables?: GetTestQueryVariables, config?: SWRConfigInterface<GetTestQuery, ClientError>) {
+      return useSWR<GetTestQuery, ClientError>(key, () => sdk.getTest(variables), config);
+    }
+  };
+}
+export type SdkWithHooks = ReturnType<typeof getSdkWithHooks>;
